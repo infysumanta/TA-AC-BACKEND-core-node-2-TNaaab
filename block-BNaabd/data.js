@@ -2,9 +2,9 @@ const http = require("http");
 const qs = require("querystring");
 
 const server = http.createServer((req, res) => {
-  const method = req.method;
-  const url = req.url;
-  const header = req.headers["content-type"];
+  let method = req.method;
+  let url = req.url;
+  let header = req.headers["content-type"];
 
   if (method === "POST" && url === "/json") {
     if (header === "application/json") {
@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
         body += chunk;
       });
       req.on("end", () => {
-        const data = JSON.parse(body);
+        let data = JSON.parse(body);
         res.end(JSON.stringify(data));
       });
     }
@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
         body += chunk;
       });
       req.on("end", () => {
-        const data = qs.parse(body);
+        let data = qs.parse(body);
         res.end(JSON.stringify(data));
       });
     }
